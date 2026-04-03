@@ -42,7 +42,7 @@ jobs:
         path: |
           SPECS/.pbuild
           SPECS/_build.x86_64
-        key: ${{ runner.os }}-${{ hashFiles('.github/build/_config') }}
+        key: ${{ runner.os }}-${{ hashFiles('.github/build/_config', '.github/build/pbuild.patch', '.github/workflows/build.yaml') }}
         restore-keys: |
           ${{ runner.os }}-
     - name: Install tools
@@ -52,7 +52,17 @@ jobs:
         sudo apt update && sudo apt install osc obs-build libwww-perl libxml-parser-perl -y
     - name: apply pbuild patch
       run: |
-        sudo patch --directory=/usr/lib/build --strip=1 -i $(pwd)/.github/build/pbuild.patch
+        set -euxo pipefail
+        patch_file="$GITHUB_WORKSPACE/.github/build/pbuild.patch"
+        pbuild_libdir="/usr/lib/build"
+        if [ ! -f "$pbuild_libdir/pbuild" ] || [ ! -f "$pbuild_libdir/PBuild/Job.pm" ] || [ ! -f "$pbuild_libdir/PBuild/Expand.pm" ]; then
+          echo "Missing expected pbuild files under $pbuild_libdir"
+          exit 1
+        fi
+        sudo patch --directory="$pbuild_libdir" --strip=1 -i "$patch_file"
+        grep -q "sub set_genbuildreqs" "$pbuild_libdir/PBuild/Job.pm"
+        grep -q "sub load_genbuildreqs" "$pbuild_libdir/PBuild/Job.pm"
+        grep -q "load_genbuildreqs" "$pbuild_libdir/pbuild"
     - name: Limit the number of compilations
       if: steps.changed-files.outputs.specs_any_changed == 'true'
       run: |
@@ -64,7 +74,10 @@ jobs:
          echo "BuildFlags: onlybuild:$p" >> ./.github/build/_config
         done
     - name: Build package(s)
-      run: (cp .github/build/* SPECS && cd SPECS && (sudo pbuild --vm-type=chroot --preset x86_64 --showlog --root=/tmp/b || (sudo pbuild --preset x86_64 --result && exit 1)))
+      run: |
+        cp .github/build/* SPECS
+        cd SPECS
+        sudo pbuild --vm-type=chroot --preset x86_64 --showlog --root=/tmp/b || (sudo pbuild --preset x86_64 --result && exit 1)
     - name: get result
       id: result
       if: steps.changed-files.outputs.specs_any_changed == 'true'
