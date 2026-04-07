@@ -9,17 +9,15 @@
 %bcond nls 1
 
 Name:           gettext
-Version:        0.26
+Version:        1.0
 Release:        %autorelease
 Summary:        GNU Internationalization (i18n) and Localization (l10n) library and tools
 License:        GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:            https://www.gnu.org/software/gettext/
 VCS:            git:https://git.savannah.gnu.org/git/gettext.git
-#!RemoteAsset
-Source0:        https://ftpmirror.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
+#!RemoteAsset:  sha256:71132a3fb71e68245b8f2ac4e9e97137d3e5c02f415636eb508ae607bc01add7
+Source0:        https://ftpmirror.gnu.org/gnu/gettext/gettext-%{version}.tar.xz
 BuildSystem:    autotools
-
-Patch0:         gettext-fix-nls-stub.patch
 
 BuildOption(conf):  --disable-csharp
 BuildOption(conf):  --with-xz
