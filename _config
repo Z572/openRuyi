@@ -1,0 +1,62 @@
+FromScratch:
+Type: spec
+Repotype: rpm-md sha512:rsyncable:zchunk:compression-zstd:filelists-ex
+ExpandFlags: preinstallexpand
+
+PublishFilter: .*-bootstrap.*
+
+Release: <CI_CNT>.<B_CNT>%%{?dist}
+
+Preinstall: rpm-build
+Preinstall: gcc-c++
+Required: rpm-config-openruyi
+Support: perl-rpm-packaging
+Support: glibc-gconv-modules-extra
+
+Prefer: systemd-udev
+Prefer: ninja
+Prefer: shadow
+Prefer: libevent
+Prefer: glib-devel glib
+Prefer: python3-libs python3-devel
+Prefer: python3  python3-packaging python3-pip python3-wheel
+
+%ifarch riscv64 && "%_project" == "openruyi"
+Constraint: hostlabel RVA23
+Constraint: hostlabel NATIVE
+%endif
+
+#------------ macros
+
+Macros:
+%_empty_manifest_terminate_build 0
+%_unpackaged_files_terminate_build 1
+%dist .or
+%_vendor openruyi
+%ext_info .gz
+%bcond_override_default_systemd 1
+%_with_systemd 1
+%ext_man .gz
+%gcc_version 15
+
+%__python /usr/bin/python3
+%bcond_override_default_acl_tests 1
+%__systemd_sysusers /usr/bin/systemd-sysusers
+%autorelease 1%{?dist}
+%autochangelog %{nil}
+%_sbindir %_bindir
+:Macros
+
+Macros:
+%_find_debuginfo_opts --no-ar-files
+:Macros
+
+%ifarch riscv64 && "%_project" == "openruyi"
+Macros:
+%_vendor_repo_url https://boat.openruyi.cn/stable/rva23/
+:Macros
+%else
+Macros:
+%_vendor_repo_url https://repo.build.openruyi.cn/openruyi/\\$basearch/
+:Macros
+%endif
