@@ -60,3 +60,30 @@ Macros:
 %_vendor_repo_url https://repo.build.openruyi.cn/openruyi/\\$basearch/
 :Macros
 %endif
+
+Order: mold:binutils
+Order: chkconfig:mold
+Order: filesystem:cmake-filesystem
+Order: filesystem:linux-headers
+Order: filesystem:systemd-rpm-macros
+Order: filesystem:glibc
+Order: filesystem:vim-filesystem
+Order: filesystem:emacs-filesystem
+Order: filesystem:acl
+Order: filesystem:attr
+Order: filesystem:tcl
+Order: filesystem:libgcc
+Order: xz:rpm-build
+Order: filesystem:ncurses
+Order: filesystem:coreutils
+Order: filesystem:unzip
+Order: filesystem:system-user-root
+Order: filesystem:pkgconf-m4
+Order: filesystem:permctl
+Order: filesystem:lua
+Order: filesystem:bzip2
+Order: glibc:patch
+Order: filesystem:perl-rpm-packaging
+Order: filesystem:terminfo-base
+Order: filesystem:filesystem
+Order: filesystem:perl
