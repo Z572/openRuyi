@@ -807,6 +807,8 @@ fi
 %ghost %dir %attr(0755,-,-) /etc/systemd/system/multi-user.target.wants
 %ghost %dir %attr(0755,-,-) /etc/systemd/system/sockets.target.wants
 %ghost %dir %attr(0755,-,-) /etc/systemd/system/sysinit.target.wants
+
+%dir %{_sysconfdir}/systemd
 %{_sysconfdir}/systemd/journald.conf
 %{_sysconfdir}/systemd/logind.conf
 %{_sysconfdir}/systemd/system.conf
@@ -1243,6 +1245,7 @@ fi
 %{_bindir}/systemd-resolve
 %{_bindir}/resolvectl
 %{_bindir}/resolvconf
+%dir %{_sysconfdir}/systemd
 %{_sysconfdir}/systemd/resolved.conf
 %{_prefix}/lib/tmpfiles.d/systemd-resolve.conf
 %{_prefix}/lib/sysusers.d/systemd-resolve.conf
@@ -1292,6 +1295,7 @@ fi
 %{_bindir}/udevadm
 %dir %{pkgdir}
 %{pkgdir}/systemd-udevd
+%dir %{_sysconfdir}/systemd
 %{_sysconfdir}/systemd/coredump.conf
 %{_sysconfdir}/systemd/pstore.conf
 %{_sysconfdir}/systemd/sleep.conf
@@ -1343,6 +1347,7 @@ fi
 %{pkgdir}/ntp-units.d/80-systemd-timesync.list
 %{pkgdir}/timesyncd.conf
 %{_prefix}/lib/sysusers.d/systemd-timesync.conf
+%dir %{_sysconfdir}/systemd
 %{_sysconfdir}/systemd/timesyncd.conf
 %{_localstatedir}/lib/systemd/timesync/clock
 %{_datadir}/dbus-1/system-services/org.freedesktop.timesync1.service
@@ -1447,6 +1452,7 @@ fi
 %{pkgdir}/system/systemd-journal-remote.socket
 %{pkgdir}/system/systemd-journal-upload.service
 %{pkgdir}/journal-remote.conf
+%dir %{_sysconfdir}/systemd
 %{_sysconfdir}/systemd/journal-remote.conf
 %{_sysconfdir}/systemd/journal-upload.conf
 %{_prefix}/lib/sysusers.d/systemd-remote.conf
@@ -1473,6 +1479,7 @@ fi
 %if %{with network}
 %files networkd
 %{_bindir}/networkctl
+%dir %{_sysconfdir}/systemd
 %{_sysconfdir}/systemd/networkd.conf
 %{_prefix}/lib/tmpfiles.d/systemd-network.conf
 %{_prefix}/lib/sysusers.d/systemd-network.conf
@@ -1534,6 +1541,7 @@ fi
 %endif
 
 %files oomd-defaults
+%dir %{_sysconfdir}/systemd
 %{_sysconfdir}/systemd/oomd.conf
 
 %if %{without bootstrap}
@@ -1547,6 +1555,7 @@ fi
 %{_bindir}/homectl
 %{_bindir}/systemd-home-fallback-shell
 %{pkgdir}/homed.conf
+%dir %{_sysconfdir}/systemd
 %{_sysconfdir}/systemd/homed.conf
 %{bash_completions_dir}/homectl
 %dir %{_datadir}/dbus-1/system-services
