@@ -472,9 +472,7 @@ Runtime library for the GNU Modula-2 language.
 %setup -q -n gcc-%{version}
 
 #test patching start
-
-%patch -P 2
-%patch -p1 -P 60 -P 61
+%patch -p1 -P 2000 -P 2001
 #test patching end
 
 %build
