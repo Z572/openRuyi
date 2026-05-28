@@ -30,6 +30,7 @@ Requires:       kf6-kcmutils
 Requires:       kf6-kconfig-imports
 Requires:       kf6-qqc2-desktop-style
 
+Recommends:     openruyi-systemd-default-preset-workstation
 Recommends:     discover
 Recommends:     mpv
 Recommends:     falkon
