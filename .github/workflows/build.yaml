@@ -95,4 +95,8 @@ jobs:
        name: PR${{ github.event.pull_request.number }}-build-packages-results
     - name: Install all
       run: |
-        dnf install **.rpm
+        dnf update --assumeyes
+    - name: Install all
+      run: |
+        ls -lah **.rpm
+        dnf install --assumeyes **.rpm
