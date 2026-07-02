@@ -22,11 +22,26 @@ BuildOption(conf):  --with-webp
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
+BuildRequires:  libzip
 BuildRequires:  make
+BuildRequires:  pkg-config
+BuildRequires:  pkgconfig(OpenEXR)
 BuildRequires:  pkgconfig(bzip2)
-BuildRequires:  pkgconfig(zlib)
-BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(ddjvuapi)
+BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(lcms2)
+BuildRequires:  pkgconfig(libheif)
+BuildRequires:  pkgconfig(libjxl)
+BuildRequires:  pkgconfig(libopenjp2)
+BuildRequires:  pkgconfig(libpng)
+BuildRequires:  pkgconfig(libraw_r)
+BuildRequires:  pkgconfig(libtiff-4)
+BuildRequires:  pkgconfig(libwebp)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(libzstd)
+BuildRequires:  pkgconfig(pangocairo)
+BuildRequires:  pkgconfig(zlib)
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
