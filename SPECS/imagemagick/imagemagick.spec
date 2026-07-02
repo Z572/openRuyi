@@ -10,8 +10,8 @@ Release:        %autorelease
 Summary:        An X application for displaying and manipulating images
 License:        ImageMagick
 URL:            https://github.com/ImageMagick/ImageMagick
-#!RemoteAsset:  sha256:2b2070802de374871737ff1a516b3d9d1e66643779b7ed9c52e2534db7772006
-Source:         https://imagemagick.org/archive/releases/ImageMagick-7.1.2-25.tar.xz
+#!RemoteAsset:  sha256:ff33d227d2e1744327280e956ec9f7abaebbd8f48277d16cdad906e05e4794b6
+Source:         https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.2-25.tar.gz
 BuildSystem:    autotools
 
 BuildOption(conf):  --enable-shared
