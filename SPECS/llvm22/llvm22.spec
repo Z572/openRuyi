@@ -147,6 +147,7 @@ tools as well as libraries with equivalent functionality.
 Summary:        Libraries and header files for LLVM (%{maj_ver})
 Requires:       llvm%{maj_ver}%{?_isa} = %{version}-%{release}
 Requires:       llvm%{maj_ver}-libs%{?_isa} = %{version}-%{release}
+Requires:       %{name}-filesystem = %{version}-%{release}
 # The installed LLVM cmake files will add -ledit to the linker flags for any
 # app that requires the libLLVMLineEditor, so we need to make sure
 # libedit-devel is available.
@@ -163,6 +164,7 @@ programs that use the LLVM infrastructure.
 
 %package     -n llvm%{maj_ver}-libs
 Summary:        LLVM shared libraries (%{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n llvm%{maj_ver}-libs
 Shared libraries for the LLVM compiler infrastructure.
@@ -170,12 +172,14 @@ Shared libraries for the LLVM compiler infrastructure.
 %package     -n llvm%{maj_ver}-static
 Summary:        LLVM static libraries (%{maj_ver})
 Provides:       llvm-static(major) = %{maj_ver}
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n llvm%{maj_ver}-static
 Static libraries for the LLVM compiler infrastructure.
 
 %package     -n llvm%{maj_ver}-cmake-utils
 Summary:        CMake utilities shared across LLVM subprojects (%{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n llvm%{maj_ver}-cmake-utils
 CMake utilities shared across LLVM subprojects.
@@ -184,6 +188,7 @@ This is for internal use by LLVM packages only.
 %package     -n clang%{maj_ver}
 Summary:        A C language family front-end for LLVM (%{maj_ver})
 Requires:       clang%{maj_ver}-libs%{?_isa} = %{version}-%{release}
+Requires:       %{name}-filesystem = %{version}-%{release}
 # clang requires gcc, clang++ requires libstdc++-devel
 Requires:       libstdc++-devel%{?_isa}
 Provides:       clang(major) = %{maj_ver}
@@ -202,6 +207,7 @@ libomp-devel to enable -fopenmp.
 Summary:        Runtime library for clang (%{maj_ver})
 Recommends:     compiler-rt%{maj_ver}%{?_isa} = %{version}-%{release}
 Requires:       llvm%{maj_ver}-libs = %{version}-%{release}
+Requires:       %{name}-filesystem = %{version}-%{release}
 # atomic support is not part of compiler-rt
 Recommends:     libatomic%{?_isa}
 # libomp-devel is required, so clang can find the omp.h header when compiling
@@ -214,6 +220,7 @@ Runtime library for clang.
 
 %package     -n clang%{maj_ver}-devel
 Summary:        Development header files for clang (%{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 Requires:       clang%{maj_ver}-libs%{?_isa} = %{version}-%{release}
 Requires:       clang%{maj_ver}%{?_isa} = %{version}-%{release}
 # The clang CMake files reference tools from clang-tools-extra.
@@ -227,6 +234,7 @@ Development header files for clang.
 
 %package     -n clang%{maj_ver}-static
 Summary:        Clang static libraries (%{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 Requires:       clang%{maj_ver}-devel%{?_isa} = %{version}-%{release}
 Provides:       clang-static(major) = %{maj_ver}
 
@@ -236,6 +244,7 @@ Static libraries for Clang.
 %package     -n clang%{maj_ver}-analyzer
 Summary:        A source code analysis framework (%{maj_ver})
 License:        Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
+Requires:       %{name}-filesystem = %{version}-%{release}
 Requires:       clang%{maj_ver}%{?_isa} = %{version}-%{release}
 
 %description -n clang%{maj_ver}-analyzer
@@ -246,6 +255,7 @@ intended to run in tandem with a build of a project or code base.
 
 %package     -n clang%{maj_ver}-tools-extra
 Summary:        Extra tools for clang (%{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 Requires:       clang%{maj_ver}-libs%{?_isa} = %{version}-%{release}
 
 %description -n clang%{maj_ver}-tools-extra
@@ -253,15 +263,17 @@ A set of extra tools built using Clang's tooling API.
 
 %package     -n clang%{maj_ver}-tools-extra-devel
 Summary:        Development header files for clang tools (%{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 Requires:       clang%{maj_ver}-tools-extra%{?_isa} = %{version}-%{release}
 
 %description -n clang%{maj_ver}-tools-extra-devel
 Development header files for clang tools.
 
-%package    -n python3-clang%{maj_ver}
+%package     -n python3-clang%{maj_ver}
 Summary:        Python bindings for clang (%{maj_ver})
-Requires:      clang%{maj_ver}-devel%{?_isa} = %{version}-%{release}
-Requires:      python3
+Requires:       clang%{maj_ver}-devel%{?_isa} = %{version}-%{release}
+Requires:       %{name}-filesystem = %{version}-%{release}
+Requires:       python3
 
 %description -n python3-clang%{maj_ver}
 Python bindings for clang.
@@ -269,6 +281,7 @@ Python bindings for clang.
 %package     -n flang%{maj_ver}
 Summary:        A Fortran language family front-end for LLVM (%{maj_ver})
 Provides:       flang(major) = %{maj_ver}
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n flang%{maj_ver}
 Flang is a Fortran front-end for the LLVM compiler infrastructure.
@@ -281,6 +294,7 @@ to provide a complete compilation solution for mixed-language projects.
 
 %package     -n flang%{maj_ver}-static
 Summary:        Flang static libraries (%{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 Requires:       flang%{maj_ver}%{?_isa} = %{version}-%{release}
 Provides:       flang-static(major) = %{maj_ver}
 
@@ -290,6 +304,7 @@ Static libraries for the Flang Fortran front-end.
 %package     -n compiler-rt%{maj_ver}
 Summary:        LLVM "compiler-rt" runtime libraries (%{maj_ver})
 License:        Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
+Requires:       %{name}-filesystem = %{version}-%{release}
 Provides:       compiler-rt(major) = %{maj_ver}
 
 %description -n compiler-rt%{maj_ver}
@@ -302,6 +317,7 @@ instrumentation, and Blocks C language extension.
 Summary:        OpenMP runtime for clang (%{maj_ver})
 URL:            http://openmp.llvm.org
 Requires:       llvm%{maj_ver}-libs%{?_isa} = %{version}-%{release}
+Requires:       %{name}-filesystem = %{version}-%{release}
 Provides:       libomp(major) = %{maj_ver}
 
 %description -n libomp%{maj_ver}
@@ -311,6 +327,7 @@ OpenMP runtime for clang.
 Summary:        OpenMP header files (%{maj_ver})
 URL:            http://openmp.llvm.org
 Requires:       libomp%{maj_ver}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-filesystem = %{version}-%{release}
 Provides:       libomp-devel(major) = %{maj_ver}
 
 %description  -n libomp%{maj_ver}-devel
@@ -318,6 +335,7 @@ OpenMP header files.
 
 %package      -n lld%{maj_ver}
 Summary:        The LLVM Linker (%{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 Provides:        lld(major) = %{maj_ver}
 
 %description -n lld%{maj_ver}
@@ -325,6 +343,7 @@ The LLVM project linker.
 
 %package     -n lld%{maj_ver}-devel
 Summary:        Libraries and header files for LLD (%{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 Requires:       lld%{maj_ver}%{?_isa} = %{version}-%{release}
 Provides:       lld-devel(major) = %{maj_ver}
 
@@ -336,6 +355,7 @@ programs that use the LLD infrastructure.
 Summary:        Next generation high-performance debugger (%{maj_ver})
 License:        Apache-2.0 WITH LLVM-exception OR NCSA
 URL:            http://lldb.llvm.org/
+Requires:       %{name}-filesystem = %{version}-%{release}
 Requires:       clang%{maj_ver}-libs%{?_isa} = %{version}-%{release}
 Recommends:     python3-lldb%{maj_ver}%{?_isa} = %{version}-%{release}
 
@@ -347,6 +367,7 @@ disassembler.
 
 %package     -n lldb%{maj_ver}-devel
 Summary:        Development header files for LLDB (%{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 Requires:       lldb%{maj_ver}%{?_isa} = %{version}-%{release}
 
 %description -n lldb%{maj_ver}-devel
@@ -354,6 +375,7 @@ The package contains header files for the LLDB debugger.
 
 %package     -n python3-lldb%{maj_ver}
 Summary:        Python module for LLDB (%{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 Requires:       lldb%{maj_ver}%{?_isa} = %{version}-%{release}
 Obsoletes:      python3-lldb < %{version}-%{release}
 Conflicts:      python3-lldb < %{version}-%{release}
@@ -366,6 +388,7 @@ Summary:        Multi-Level Intermediate Representation Overview (%{maj_ver})
 License:        Apache-2.0 WITH LLVM-exception
 URL:            http://mlir.llvm.org
 Requires:       llvm%{maj_ver}-libs%{?_isa} = %{version}-%{release}
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n mlir%{maj_ver}
 The MLIR project is a novel approach to building reusable and extensible
@@ -377,6 +400,7 @@ existing compilers together.
 %package     -n mlir%{maj_ver}-static
 Summary:        MLIR static files (%{maj_ver})
 Requires:       mlir%{maj_ver}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n mlir%{maj_ver}-static
 MLIR static files.
@@ -385,6 +409,7 @@ MLIR static files.
 Summary:        MLIR development files (%{maj_ver})
 Requires:       mlir%{maj_ver}%{?_isa} = %{version}-%{release}
 Requires:       mlir%{maj_ver}-static%{?_isa} = %{version}-%{release}
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n mlir%{maj_ver}-devel
 MLIR development files.
@@ -393,6 +418,7 @@ MLIR development files.
 Summary:        MLIR python bindings (%{maj_ver})
 Requires:       python3
 Requires:       python3dist(numpy)
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n python3-mlir%{maj_ver}
 MLIR python bindings.
@@ -402,6 +428,7 @@ Summary:        C++ standard library targeting C++11 (LLVM %{maj_ver})
 License:        Apache-2.0 WITH LLVM-exception OR MIT OR NCSA
 URL:            http://libcxx.llvm.org/
 Requires:       libcxxabi%{maj_ver}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n libcxx%{maj_ver}
 libc++ is a new implementation of the C++ standard library, targeting C++11 and above.
@@ -411,6 +438,7 @@ This package contains LLVM version %{maj_ver}.
 Summary:        Headers and libraries for libcxx%{maj_ver} development
 Requires:       libcxx%{maj_ver}%{?_isa} = %{version}-%{release}
 Requires:       libcxxabi%{maj_ver}-devel%{?_isa}
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n libcxx%{maj_ver}-devel
 Headers and libraries for libcxx%{maj_ver} development.
@@ -418,6 +446,7 @@ This package contains LLVM version %{maj_ver}.
 
 %package     -n libcxx%{maj_ver}-static
 Summary:        Static libraries for libcxx%{maj_ver}
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n libcxx%{maj_ver}-static
 Static libraries for libcxx%{maj_ver}.
@@ -425,6 +454,7 @@ This package contains LLVM version %{maj_ver}.
 
 %package     -n libcxxabi%{maj_ver}
 Summary:        Low level support for a standard C++ library (LLVM %{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n libcxxabi%{maj_ver}
 libcxxabi provides low level support for a standard C++ library.
@@ -440,6 +470,7 @@ This package contains LLVM version %{maj_ver}.
 
 %package     -n libcxxabi%{maj_ver}-static
 Summary:        Static libraries for libcxxabi%{maj_ver}
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n libcxxabi%{maj_ver}-static
 Static libraries for libcxxabi%{maj_ver}.
@@ -447,6 +478,7 @@ This package contains LLVM version %{maj_ver}.
 
 %package     -n llvm-libunwind%{maj_ver}
 Summary:        LLVM libunwind (version %{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n llvm-libunwind%{maj_ver}
 LLVM libunwind is an implementation of the interface defined by the HP libunwind
@@ -466,6 +498,7 @@ Development files for LLVM libunwind version %{maj_ver}.
 
 %package     -n llvm-libunwind%{maj_ver}-static
 Summary:        Static library for LLVM libunwind (version %{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description -n llvm-libunwind%{maj_ver}-static
 Static library for LLVM libunwind version %{maj_ver}.
@@ -474,6 +507,7 @@ Static library for LLVM libunwind version %{maj_ver}.
 Summary:        A post-link optimizer developed to speed up large applications (%{maj_ver})
 License:        Apache-2.0 WITH LLVM-exception
 URL:            https://github.com/llvm/llvm-project/tree/main/bolt
+Requires:       %{name}-filesystem = %{version}-%{release}
 # As hinted by bolt documentation
 Recommends:     gperftools-devel
 
@@ -484,12 +518,19 @@ execution profile gathered by sampling profiler, such as Linux `perf` tool.
 
 %package     -n polly%{maj_ver}-devel
 Summary:        Polly static and header files (%{maj_ver})
+Requires:       %{name}-filesystem = %{version}-%{release}
 
 %description  -n polly%{maj_ver}-devel
 Polly is a high-level loop and data-locality optimizer and optimization
 infrastructure for LLVM. It uses an abstract mathematical representation based
 on integer polyhedron to analyze and optimize the memory access pattern of a
 program.
+
+%package        filesystem
+Summary:        Filesystem package that owns the versioned llvm prefix
+
+%description    filesystem
+This packages owns the versioned llvm prefix directory
 
 %prep
 %autosetup -p1 -T -b 0 -n %{src_tarball_dir}
@@ -740,6 +781,15 @@ echo "%%clang%{maj_ver}_resource_dir %%{install_prefix}/lib/clang/%{maj_ver}" > 
   end
 }
 %define expand_libs() %{expand_generic -d %{_libdir} -i %{install_libdir}  %*}
+
+%files filesystem
+%dir %{install_prefix}
+%dir %{install_bindir}
+%dir %{install_includedir}
+%dir %{install_libdir}
+%dir %{install_libdir}/cmake
+%dir %{install_libexecdir}
+%dir %{install_datadir}
 
 %files -n llvm%{maj_ver}
 %license llvm/LICENSE.TXT
