@@ -21,6 +21,8 @@ Support: perl-rpm-packaging
 Support: glibc-gconv-modules-extra
 Support: mold
 
+Prefer: libomp22
+Prefer: curl
 Prefer: systemd-udev
 Prefer: ninja
 Prefer: shadow
