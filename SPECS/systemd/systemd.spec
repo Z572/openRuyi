@@ -68,6 +68,7 @@ BuildOption(conf):  -Dxkbcommon=%{?with_x:enabled}%{!?with_x:disabled}
 BuildOption(conf):  -Dselinux=disabled
 BuildOption(conf):  -Dbpf-framework=%{?with_bpf:enabled}%{!?with_bpf:disabled}
 BuildOption(conf):  -Dvmlinux-h=disabled
+BuildOption(conf):  -Dntp-servers='0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org'
 #BuildOption(conf):  -Dvmlinux-h-path="$VMLINUX_H_PATH"
 BuildOption(conf):  -Dapparmor=disabled
 BuildOption(conf):  -Dxz=enabled
