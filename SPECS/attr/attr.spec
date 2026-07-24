@@ -6,13 +6,13 @@
 # SPDX-License-Identifier: MulanPSL-2.0
 
 Name:           attr
-Version:        2.5.2
+Version:        2.6.0
 Release:        %autorelease
 Summary:        Commands for Manipulating Extended Attributes
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://savannah.nongnu.org/projects/attr/
 VCS:            git:https://git.savannah.nongnu.org/git/attr.git
-#!RemoteAsset:  sha256:39bf67452fa41d0948c2197601053f48b3d78a029389734332a6309a680c6c87
+#!RemoteAsset:  sha256:d42fa374513180bb48cb11a46696f488240e5124ff1e6ad88b0abff706985612
 Source:         https://download-mirror.savannah.gnu.org/releases/attr/attr-%{version}.tar.gz
 BuildSystem:    autotools
 
