@@ -912,7 +912,6 @@ fi
 %{_bindir}/systemd-tty-ask-password-agent
 %{_bindir}/systemd-umount
 %{_bindir}/systemd-vpick
-%{_bindir}/timedatectl
 %{_bindir}/userdbctl
 %{_bindir}/varlinkctl
 %if %{with bpf}
@@ -979,7 +978,6 @@ fi
 %{zsh_completions_dir}/_systemd-run
 %{zsh_completions_dir}/_systemd-sysinstall
 %{zsh_completions_dir}/_systemd-tmpfiles
-%{zsh_completions_dir}/_timedatectl
 %{zsh_completions_dir}/_userdbctl
 %{zsh_completions_dir}/_varlinkctl
 %{_datadir}/user-tmpfiles.d/20-systemd-varlink.conf
@@ -1359,7 +1357,6 @@ fi
 %{_prefix}/lib/udev/hwdb.d/*
 %{_prefix}/lib/udev/rules.d/*
 %{bash_completions_dir}/udevadm
-%{bash_completions_dir}/timedatectl
 %{bash_completions_dir}/systemd-hwdb
 %{zsh_completions_dir}/_systemd-hwdb
 %{_prefix}/lib/modprobe.d/systemd.conf
@@ -1369,24 +1366,27 @@ fi
 
 %files timesyncd
 %dir %{pkgdir}
-%{system_unit_dir}/dbus-org.freedesktop.timedate1.service
+%{_bindir}/timedatectl
+%{_datadir}/dbus-1/system-services/org.freedesktop.timedate1.service
+%{_datadir}/dbus-1/system-services/org.freedesktop.timesync1.service
+%{_datadir}/dbus-1/system.d/org.freedesktop.timedate1.conf
+%{_datadir}/dbus-1/system.d/org.freedesktop.timesync1.conf
+%{_datadir}/polkit-1/actions/org.freedesktop.timedate1.policy
+%{_datadir}/polkit-1/actions/org.freedesktop.timesync1.policy
+%{_localstatedir}/lib/systemd/timesync/clock
+%{_sysconfdir}/systemd/timesyncd.conf
+%{bash_completions_dir}/timedatectl
+%{pkgdir}/ntp-units.d/80-systemd-timesync.list
 %{pkgdir}/systemd-time-wait-sync
 %{pkgdir}/systemd-timedated
 %{pkgdir}/systemd-timesyncd
+%{pkgdir}/timesyncd.conf
+%{system_unit_dir}/dbus-org.freedesktop.timedate1.service
 %{system_unit_dir}/systemd-time-wait-sync.service
 %{system_unit_dir}/systemd-timedated.service
 %{system_unit_dir}/systemd-timesyncd.service
-%{pkgdir}/ntp-units.d/80-systemd-timesync.list
-%{pkgdir}/timesyncd.conf
 %{sysusers_dir}/systemd-timesync.conf
-%{_sysconfdir}/systemd/timesyncd.conf
-%{_localstatedir}/lib/systemd/timesync/clock
-%{_datadir}/dbus-1/system-services/org.freedesktop.timesync1.service
-%{_datadir}/dbus-1/system-services/org.freedesktop.timedate1.service
-%{_datadir}/dbus-1/system.d/org.freedesktop.timesync1.conf
-%{_datadir}/dbus-1/system.d/org.freedesktop.timedate1.conf
-%{_datadir}/polkit-1/actions/org.freedesktop.timedate1.policy
-%{_datadir}/polkit-1/actions/org.freedesktop.timesync1.policy
+%{zsh_completions_dir}/_timedatectl
 
 %if %{with ukify}
 %files ukify
