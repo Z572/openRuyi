@@ -7,14 +7,14 @@
 # SPDX-License-Identifier: MulanPSL-2.0
 
 Name:           libpcap
-Version:        1.10.5
+Version:        1.10.7
 Release:        %autorelease
 Summary:        A system-independent interface for user-level packet capture
 License:        BSD-3-Clause
 URL:            https://www.tcpdump.org
 VCS:            git:https://github.com/the-tcpdump-group/libpcap
-#!RemoteAsset
-Source:         https://www.tcpdump.org/release/%{name}-%{version}.tar.xz
+#!RemoteAsset:  sha256:68fa62cffb974f4275641ce14c2e2d75739251f30e00e6a0900903b247d76a03
+Source:         https://www.tcpdump.org/release/libpcap-%{version}.tar.xz
 BuildSystem:    autotools
 
 BuildRequires:  make
@@ -52,7 +52,7 @@ export CFLAGS="%{optflags} -fno-strict-aliasing"
 %license LICENSE
 %{_libdir}/libpcap.so.*
 
-%files  devel
+%files devel
 %{_bindir}/pcap-config
 %{_includedir}/pcap/
 %{_includedir}/pcap.h
@@ -63,7 +63,7 @@ export CFLAGS="%{optflags} -fno-strict-aliasing"
 %{_libdir}/pkgconfig/libpcap.pc
 %{_mandir}/man3/pcap*.3*
 
-%files  help
+%files help
 %doc README.md CHANGES CREDITS
 %{_mandir}/man1/pcap-config.1*
 %{_mandir}/man5/pcap-savefile.5*
@@ -72,4 +72,4 @@ export CFLAGS="%{optflags} -fno-strict-aliasing"
 %{_mandir}/man7/pcap-tstamp.7*
 
 %changelog
-%{?autochangelog}
+%autochangelog
