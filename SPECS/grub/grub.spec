@@ -22,7 +22,7 @@ License:        GPL-3.0-or-later
 URL:            http://www.gnu.org/software/grub/
 VCS:            git:https://https.git.savannah.gnu.org/git/grub.git
 #!RemoteAsset:  sha256:bc8d3c73535b8838d8c8e2654d73edc4e6ae8c8acdb45d5df5dc9a1547446d43
-Source0:        https://ftpmirror.gnu.org/gnu/grub/grub-%{version}.tar.xz
+Source0:        https://ftp.gnu.org/gnu/grub/grub-%{version}.tar.xz
 Source1:        grub.default
 Source2:        28_blsuki
 
