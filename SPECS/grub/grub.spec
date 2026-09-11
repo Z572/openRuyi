@@ -199,7 +199,7 @@ install -D -m 0755 %{SOURCE2} %{buildroot}%{_sysconfdir}/grub.d/28_blsuki
 %config(noreplace) %{_sysconfdir}/grub.d/10_linux
 %config(noreplace) %{_sysconfdir}/grub.d/20_linux_xen
 %config(noreplace) %{_sysconfdir}/grub.d/28_blsuki
-%attr(0644, root, root) %config(noreplace) %{_sysconfdir}/grub.d/25_bli
+%config(noreplace) %{_sysconfdir}/grub.d/25_bli
 %config(noreplace) %{_sysconfdir}/grub.d/30_os-prober
 %config(noreplace) %{_sysconfdir}/grub.d/30_uefi-firmware
 %config(noreplace) %{_sysconfdir}/grub.d/40_custom
