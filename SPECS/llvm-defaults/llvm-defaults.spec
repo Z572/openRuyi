@@ -217,6 +217,8 @@ a post-link optimizer developed to speed up large applications.
 %package     -n lld
 Summary:        Default symlinks for LLVM lld linker
 Requires:       lld%{maj_ver} > %{maj_ver}
+Requires(post):   update-alternatives
+Requires(postun): update-alternatives
 
 %description -n lld
 This package provides default unversioned symlinks for LLVM lld linker %{maj_ver}.
