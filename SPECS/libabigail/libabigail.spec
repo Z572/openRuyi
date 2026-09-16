@@ -31,6 +31,9 @@ BuildRequires:  pkgconfig(liblzma)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(libxxhash)
 
+# require by abipkgdiff rpm support
+Requires:       cpio
+
 %description
 This libabigail package aims at providing a C++ library for constructing,
 manipulating, serializing and de-serializing ABI-relevant artifacts.
