@@ -7,12 +7,12 @@
 # SPDX-License-Identifier: MulanPSL-2.0
 
 Name:           libjwt
-Version:        3.2.2
+Version:        3.6.1
 Release:        %autorelease
 Summary:        A Javascript Web Token library in C
 License:        MPL-2.0
 URL:            https://github.com/benmcollins/libjwt
-#!RemoteAsset
+#!RemoteAsset:  sha256:4bfa88be3b396f8ba9315c5ed82f6ae4a60b29e9775524a1a8024a618201c1f1
 Source:         https://github.com/benmcollins/libjwt/releases/download/v%{version}/libjwt-%{version}.tar.xz
 BuildSystem:    cmake
 
@@ -22,7 +22,6 @@ BuildOption(conf):  -DBUILD_EXAMPLES:BOOL=OFF
 
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(jansson)
-BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  pkgconfig(openssl)
 
@@ -45,11 +44,15 @@ find %{buildroot} -type f -name "*.a" -delete -print
 %license LICENSE
 %doc %{_docdir}
 %doc README.md
-%{_libdir}/libjwt.so.*
+%{_bindir}/jwe-decrypt
+%{_bindir}/jwe-encrypt
 %{_bindir}/jwk2key
 %{_bindir}/jwt-generate
 %{_bindir}/jwt-verify
 %{_bindir}/key2jwk
+%{_libdir}/libjwt.so.*
+%{_mandir}/man1/jwe-decrypt.1.gz
+%{_mandir}/man1/jwe-encrypt.1.gz
 %{_mandir}/man1/jwk2key.1*
 %{_mandir}/man1/jwt-generate.1*
 %{_mandir}/man1/jwt-verify.1*
@@ -63,4 +66,4 @@ find %{buildroot} -type f -name "*.a" -delete -print
 %{_libdir}/cmake/LibJWT/
 
 %changelog
-%{?autochangelog}
+%autochangelog
