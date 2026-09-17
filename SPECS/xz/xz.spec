@@ -8,13 +8,13 @@
 %bcond static 0
 
 Name:           xz
-Version:        5.8.3
+Version:        5.8.4
 Release:        %autorelease
 Summary:        A Program for Compressing Files with the Lempel–Ziv–Markov algorithm
 License:        0BSD AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:            https://tukaani.org/xz/
 VCS:            git:https://github.com/tukaani-project/xz
-#!RemoteAsset:  sha256:fff1ffcf2b0da84d308a14de513a1aa23d4e9aa3464d17e64b9714bfdd0bbfb6
+#!RemoteAsset:  sha256:4ce24038fd4221e0d13bc1a2de7a4db56e90b92b3bf75321f6c14be73f65de4b
 Source0:        https://github.com/tukaani-project/xz/releases/download/v%{version}/xz-%{version}.tar.xz
 Source1:        xznew
 Source2:        xznew.1
