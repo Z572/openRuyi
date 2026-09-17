@@ -10,12 +10,12 @@
 %bcond zchunk 1
 
 Name:           librepo
-Version:        1.20.0
+Version:        1.21.1
 Release:        %autorelease
 Summary:        Library for downloading repository metadata
 License:        LGPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/librepo
-#!RemoteAsset
+#!RemoteAsset:  sha256:85a9dec2f48976b0d800aa7692346fc2967b6195c0e524195f02a110535010e0
 Source:         %{url}/archive/%{version}/librepo-%{version}.tar.gz
 BuildSystem:    cmake
 
@@ -71,4 +71,4 @@ export PKG_CONFIG_PATH=%{_libdir}/pkgconfig:%{_datadir}/pkgconfig
 %{_includedir}/librepo/
 
 %changelog
-%{?autochangelog}
+%autochangelog
