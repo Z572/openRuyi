@@ -136,23 +136,8 @@ instrumentation, and Blocks C language extension.
 %autosetup -p1 -T -b 0 -n %{src_tarball_dir}
 
 %py3_shebang_fix \
-    llvm/test/BugPoint/compile-custom.ll.py \
     llvm/tools/opt-viewer/*.py \
     llvm/utils/update_cc_test_checks.py
-%py3_shebang_fix \
-    clang-tools-extra/clang-tidy/tool/ \
-    clang-tools-extra/clang-include-fixer/find-all-symbols/tool/run-find-all-symbols.py
-%py3_shebang_fix \
-    clang/tools/clang-format/ \
-    clang/tools/clang-format/git-clang-format \
-    clang/utils/hmaptool/hmaptool \
-    clang/tools/scan-view/bin/scan-view \
-    clang/tools/scan-view/share/Reporter.py \
-    clang/tools/scan-view/share/startfile.py \
-    clang/tools/scan-build-py/bin/* \
-    clang/tools/scan-build-py/libexec/*
-%py3_shebang_fix compiler-rt/lib/hwasan/scripts/hwasan_symbolize
-%py3_shebang_fix libcxx/utils/
 
 %conf
 export ASMFLAGS="%{build_cflags}"
@@ -191,19 +176,6 @@ OLD_CWD="$PWD"
     -DLLVM_ENABLE_SPHINX:BOOL=OFF \\\
     -DLLVM_BUILD_DOCS:BOOL=OFF
 
-# lldb options
-%global cmake_config_args %{cmake_config_args} \\\
-    -DLLDB_ENFORCE_STRICT_TEST_REQUIREMENTS:BOOL=ON \\\
-    -DLLDB_PYTHON_RELATIVE_PATH=lib/python%{python3_version}/site-packages
-
-# libcxx options
-%global cmake_config_args %{cmake_config_args}  \\\
-    -DCMAKE_POSITION_INDEPENDENT_CODE=ON \\\
-    -DLIBCXX_INCLUDE_BENCHMARKS=OFF \\\
-    -DLIBCXX_STATICALLY_LINK_ABI_IN_STATIC_LIBRARY=ON \\\
-    -DLIBCXX_ENABLE_ABI_LINKER_SCRIPT=ON \\\
-    -DLIBCXXABI_USE_LLVM_UNWINDER=OFF
-
 # llvm options
 %global cmake_config_args %{cmake_config_args}  \\\
     -DLLVM_APPEND_VC_REV:BOOL=OFF \\\
@@ -231,22 +203,6 @@ OLD_CWD="$PWD"
     -DLLVM_UTILS_INSTALL_DIR:PATH=bin \\\
     -DLLVM_ENABLE_LTO=OFF
 
-# mlir options
-%global cmake_config_args %{cmake_config_args} \\\
-    -DMLIR_INCLUDE_DOCS:BOOL=ON \\\
-    -DMLIR_INCLUDE_TESTS:BOOL=ON \\\
-    -DMLIR_INCLUDE_INTEGRATION_TESTS:BOOL=OFF \\\
-    -DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF \\\
-    -DMLIR_BUILD_MLIR_C_DYLIB=ON \\\
-    -DMLIR_ENABLE_BINDINGS_PYTHON:BOOL=ON
-
-# openmp options
-%global cmake_config_args %{cmake_config_args} \\\
-    -DLIBOMP_INSTALL_ALIASES=OFF
-
-# polly options
-%global cmake_config_args %{cmake_config_args} \\\
-    -DLLVM_POLLY_LINK_INTO_TOOLS=OFF
 
 # test options
 %global cmake_config_args %{cmake_config_args} \\\
