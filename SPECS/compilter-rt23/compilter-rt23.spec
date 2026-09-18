@@ -78,6 +78,7 @@ Provides:       compiler-rt(major) = %{maj_ver}
 BuildSystem:    cmake
 
 BuildOption(conf):  -G Ninja
+BuildOption(conf):  -DLLVM_CMAKE_DIR=%{install_libdir}/cmake/llvm
 BuildOption(conf):  -DCMAKE_BUILD_TYPE=RelWithDebInfo
 BuildOption(conf):  -DLLVM_ENABLE_RTTI=ON
 BuildOption(conf):  -DLLVM_USE_PERF=ON
