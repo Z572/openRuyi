@@ -7,13 +7,13 @@
 # SPDX-License-Identifier: MulanPSL-2.0
 
 Name:           libarchive
-Version:        3.8.7
+Version:        3.8.9
 Release:        %autorelease
 Summary:        Utility and C library to create and read several streaming archive formats
 License:        BSD-2-Clause
 URL:            https://www.libarchive.org/
 VCS:            git:https://github.com/libarchive/libarchive
-#!RemoteAsset:  sha256:d3a8ba457ae25c27c84fd2830a2efdcc5b1d40bf585d4eb0d35f47e99e5d4774
+#!RemoteAsset:  sha256:888c934f9d95648ecb9163dc8e23ab80a476ecb81a8f1154704a227b5b676dde
 Source0:        https://github.com/libarchive/libarchive/releases/download/v%{version}/libarchive-%{version}.tar.xz
 BuildSystem:    autotools
 
