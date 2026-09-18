@@ -75,6 +75,60 @@ VCS:            git:https://github.com/llvm/llvm-project.git
 Source0:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-%{rc_ver}}/%{src_tarball_dir}.tar.xz
 
 Provides:       compiler-rt(major) = %{maj_ver}
+BuildSystem:    cmake
+
+BuildOption(conf):  -G Ninja
+BuildOption(conf):  -DCMAKE_BUILD_TYPE=RelWithDebInfo
+BuildOption(conf):  -DLLVM_ENABLE_RTTI=ON
+BuildOption(conf):  -DLLVM_USE_PERF=ON
+BuildOption(conf):  -DLLVM_TARGETS_TO_BUILD=%{targets_to_build}
+BuildOption(conf):  -DBUILD_SHARED_LIBS=OFF
+BuildOption(conf):  -DLLVM_BUILD_LLVM_DYLIB=ON
+BuildOption(conf):  -DLLVM_LINK_LLVM_DYLIB=ON
+BuildOption(conf):  -DCLANG_LINK_CLANG_DYLIB=ON
+BuildOption(conf):  -DLLVM_ENABLE_FFI:BOOL=ON
+BuildOption(conf):  -DLLVM_BINUTILS_INCDIR=/usr/include
+BuildOption(conf):  -DLLVM_ENABLE_EH=OFF
+BuildOption(conf):  -DCOMPILER_RT_INCLUDE_TESTS:BOOL=OFF
+BuildOption(conf):  -DLLVM_ENABLE_DOXYGEN:BOOL=OFF
+BuildOption(conf):  -DLLVM_ENABLE_SPHINX:BOOL=OFF
+BuildOption(conf):  -DLLVM_BUILD_DOCS:BOOL=OFF
+BuildOption(conf):  -DLLVM_APPEND_VC_REV:BOOL=OFF
+BuildOption(conf):  -DLLVM_BUILD_EXAMPLES:BOOL=OFF
+BuildOption(conf):  -DLLVM_BUILD_EXTERNAL_COMPILER_RT:BOOL=ON
+BuildOption(conf):  -DLLVM_BUILD_RUNTIME:BOOL=ON
+BuildOption(conf):  -DLLVM_BUILD_TOOLS:BOOL=ON
+BuildOption(conf):  -DLLVM_BUILD_UTILS:BOOL=ON
+BuildOption(conf):  -DLLVM_DEFAULT_TARGET_TRIPLE=%{llvm_triple}
+# BuildOption(conf):  -DLLVM_ENABLE_LIBCXX:BOOL=OFF
+BuildOption(conf):  -DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON
+# BuildOption(conf):  -DLLVM_ENABLE_PROJECTS="%{projects}"
+# BuildOption(conf):  -DLLVM_ENABLE_RUNTIMES="%{runtimes}"
+BuildOption(conf):  -DLLVM_ENABLE_ZLIB:BOOL=FORCE_ON
+BuildOption(conf):  -DLLVM_ENABLE_ZSTD:BOOL=FORCE_ON
+# BuildOption(conf):  -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=%{experimental_targets_to_build}
+BuildOption(conf):  -DLLVM_INCLUDE_BENCHMARKS=OFF
+BuildOption(conf):  -DLLVM_INCLUDE_EXAMPLES:BOOL=OFF
+BuildOption(conf):  -DLLVM_INCLUDE_TOOLS:BOOL=ON
+BuildOption(conf):  -DLLVM_INCLUDE_UTILS:BOOL=ON
+BuildOption(conf):  -DLLVM_INSTALL_TOOLCHAIN_ONLY:BOOL=OFF
+BuildOption(conf):  -DLLVM_INSTALL_UTILS:BOOL=ON
+BuildOption(conf):  -DLLVM_TOOLS_INSTALL_DIR:PATH=bin
+BuildOption(conf):  -DLLVM_UNREACHABLE_OPTIMIZE:BOOL=OFF
+BuildOption(conf):  -DLLVM_UTILS_INSTALL_DIR:PATH=bin
+BuildOption(conf):  -DLLVM_ENABLE_LTO=OFF
+BuildOption(conf):  -DLLVM_BUILD_TESTS:BOOL=ON
+BuildOption(conf):  -DLLVM_INCLUDE_TESTS:BOOL=ON
+BuildOption(conf):  -DLLVM_INSTALL_GTEST:BOOL=ON
+BuildOption(conf):  -DLLVM_LIT_ARGS="-vv"
+BuildOption(conf):  -DCMAKE_INSTALL_PREFIX=%{install_prefix}
+BuildOption(conf):  -DENABLE_LINKER_BUILD_ID:BOOL=ON
+BuildOption(conf):  -DPython3_EXECUTABLE=%{__python3}
+BuildOption(conf):  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
+BuildOption(conf):  -DLLVM_VERSION_SUFFIX=''
+
+
+
 # clang patches
 
 BuildRequires:  llvm%{maj_ver} = %{version}
@@ -139,118 +193,10 @@ instrumentation, and Blocks C language extension.
     llvm/tools/opt-viewer/*.py \
     llvm/utils/update_cc_test_checks.py
 
-%conf
+%conf -p
 export ASMFLAGS="%{build_cflags}"
-export FFLAGS=`echo %{build_fflags} | sed -e "s/-pipe//g" -e "s/-funwind-tables//g" -e "s/-fasynchronous-unwind-tables//g" -e "s/-fstack-protector-strong//g" -e "s/-fstack-clash-protection//g" -e "s/-Wformat//g" -e "s/-Werror=format-security//g"`
-export FCFLAGS=${FFLAGS}
 
-cd llvm
-# Remember old values to reset to
-OLD_PATH="$PATH"
-OLD_LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
-OLD_CWD="$PWD"
-
-# general cmake options
-# Any ABI-affecting flags should be in here
-%global cmake_common_args \\\
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \\\
-    -DLLVM_ENABLE_RTTI=ON \\\
-    -DLLVM_USE_PERF=ON \\\
-    -DLLVM_TARGETS_TO_BUILD=%{targets_to_build} \\\
-    -DBUILD_SHARED_LIBS=OFF \\\
-    -DLLVM_BUILD_LLVM_DYLIB=ON \\\
-    -DLLVM_LINK_LLVM_DYLIB=ON \\\
-    -DCLANG_LINK_CLANG_DYLIB=ON \\\
-    -DLLVM_ENABLE_FFI:BOOL=ON \\\
-    -DLLVM_BINUTILS_INCDIR=/usr/include
-%global cmake_common_args %{cmake_common_args} \\\
-    -DLLVM_ENABLE_EH=OFF
-
-# compiler-rt options
-%global cmake_config_args %{cmake_config_args} \\\
-    -DCOMPILER_RT_INCLUDE_TESTS:BOOL=OFF
-
-# docs options
-%global cmake_config_args %{cmake_config_args} \\\
-    -DLLVM_ENABLE_DOXYGEN:BOOL=OFF \\\
-    -DLLVM_ENABLE_SPHINX:BOOL=OFF \\\
-    -DLLVM_BUILD_DOCS:BOOL=OFF
-
-# llvm options
-%global cmake_config_args %{cmake_config_args}  \\\
-    -DLLVM_APPEND_VC_REV:BOOL=OFF \\\
-    -DLLVM_BUILD_EXAMPLES:BOOL=OFF \\\
-    -DLLVM_BUILD_EXTERNAL_COMPILER_RT:BOOL=ON \\\
-    -DLLVM_BUILD_RUNTIME:BOOL=ON \\\
-    -DLLVM_BUILD_TOOLS:BOOL=ON \\\
-    -DLLVM_BUILD_UTILS:BOOL=ON \\\
-    -DLLVM_DEFAULT_TARGET_TRIPLE=%{llvm_triple} \\\
-    -DLLVM_ENABLE_LIBCXX:BOOL=OFF \\\
-    -DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON \\\
-    -DLLVM_ENABLE_PROJECTS="%{projects}" \\\
-    -DLLVM_ENABLE_RUNTIMES="%{runtimes}" \\\
-    -DLLVM_ENABLE_ZLIB:BOOL=FORCE_ON \\\
-    -DLLVM_ENABLE_ZSTD:BOOL=FORCE_ON \\\
-    -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=%{experimental_targets_to_build} \\\
-    -DLLVM_INCLUDE_BENCHMARKS=OFF \\\
-    -DLLVM_INCLUDE_EXAMPLES:BOOL=OFF \\\
-    -DLLVM_INCLUDE_TOOLS:BOOL=ON \\\
-    -DLLVM_INCLUDE_UTILS:BOOL=ON \\\
-    -DLLVM_INSTALL_TOOLCHAIN_ONLY:BOOL=OFF \\\
-    -DLLVM_INSTALL_UTILS:BOOL=ON \\\
-    -DLLVM_TOOLS_INSTALL_DIR:PATH=bin \\\
-    -DLLVM_UNREACHABLE_OPTIMIZE:BOOL=OFF \\\
-    -DLLVM_UTILS_INSTALL_DIR:PATH=bin \\\
-    -DLLVM_ENABLE_LTO=OFF
-
-
-# test options
-%global cmake_config_args %{cmake_config_args} \\\
-    -DLLVM_BUILD_TESTS:BOOL=ON \\\
-    -DLLVM_INCLUDE_TESTS:BOOL=ON \\\
-    -DLLVM_INSTALL_GTEST:BOOL=ON \\\
-    -DLLVM_LIT_ARGS="-vv"
-
-# misc options
-%global cmake_config_args %{cmake_config_args} \\\
-    -DCMAKE_INSTALL_PREFIX=%{install_prefix} \\\
-    -DENABLE_LINKER_BUILD_ID:BOOL=ON \\\
-    -DPython3_EXECUTABLE=%{__python3}
-# During the build, we use both the system clang and the just-built clang, and
-# they need to use the system and just-built shared objects respectively. If
-# we use LD_LIBRARY_PATH to point to our build directory, the system clang
-# may use the just-built shared objects instead, which may not be compatible
-# even if the version matches (e.g. when building compat libs or different rcs).
-# Instead, we make use of rpath during the build and only strip it on
-# installation using the CMAKE_SKIP_INSTALL_RPATH option.
-%global cmake_config_args %{cmake_config_args} -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
-%global cmake_config_args %{cmake_config_args} -DLLVM_VERSION_SUFFIX=''
-
-extra_cmake_args=''
-# https://github.com/llvm/llvm-project/issues/111492
-if grep 'flags.*la57' /proc/cpuinfo; then
-  extra_cmake_args="$extra_cmake_args -DOPENMP_TEST_ENABLE_TSAN=OFF"
-fi
-
-# Now reset paths and globals
-function reset_paths {
-    export PATH="$OLD_PATH"
-    export LD_LIBRARY_PATH="$OLD_LD_LIBRARY_PATH"
-}
-reset_paths
-cd $OLD_CWD
-
-%global extra_cmake_opts %{nil}
-
-# Now let's build
-%cmake -G Ninja %{cmake_config_args} %{extra_cmake_opts} $extra_cmake_args
-
-%build
-%cmake_build
-
-%install
-%cmake_install
-
+%install -a
 mkdir -p %{buildroot}/%{_bindir}
 pushd %{buildroot}/%{_bindir}
 for e in `ls %{buildroot}/%{install_bindir}`;do
@@ -269,10 +215,8 @@ done
 popd
 
 %check
-
-%end
-
 # it takes days to complete the testing. Let's just disable it for now.
+%end
 
 %define expand_bins() %{lua:
   local bindir = rpm.expand("%{_bindir}")
