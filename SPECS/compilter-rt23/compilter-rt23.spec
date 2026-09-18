@@ -126,7 +126,14 @@ BuildOption(conf):  -DENABLE_LINKER_BUILD_ID:BOOL=ON
 BuildOption(conf):  -DPython3_EXECUTABLE=%{__python3}
 BuildOption(conf):  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
 BuildOption(conf):  -DLLVM_VERSION_SUFFIX=''
-
+BuildOption(conf):  -DCLANG_CONFIG_FILE_SYSTEM_DIR=%{_sysconfdir}/clang%{maj_ver}/
+BuildOption(conf):  -DCLANG_DEFAULT_PIE_ON_LINUX=OFF
+BuildOption(conf):  -DCLANG_DEFAULT_UNWINDLIB=libgcc
+BuildOption(conf):  -DCLANG_ENABLE_STATIC_ANALYZER:BOOL=ON
+BuildOption(conf):  -DCLANG_INCLUDE_DOCS:BOOL=ON
+BuildOption(conf):  -DCLANG_INCLUDE_TESTS:BOOL=ON
+BuildOption(conf):  -DCLANG_PLUGIN_SUPPORT:BOOL=ON
+BuildOption(conf):  -DCLANG_REPOSITORY_STRING="%{?dist_vendor} %{version}-%{release}"
 
 
 # clang patches
