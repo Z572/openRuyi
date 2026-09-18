@@ -237,7 +237,7 @@ popd
 }
 %define expand_libs() %{expand_generic -d %{_libdir} -i %{install_libdir}  %*}
 
-%files -n compiler-rt%{maj_ver}
+%files
 %license compiler-rt/LICENSE.TXT
 %ifarch x86_64 riscv64
 %{install_libdir}/clang/%{maj_ver}/bin/hwasan_symbolize
