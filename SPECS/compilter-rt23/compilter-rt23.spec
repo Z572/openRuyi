@@ -80,53 +80,20 @@ BuildSystem:    cmake
 BuildOption(conf):  -G Ninja
 BuildOption(conf):  -DLLVM_CMAKE_DIR=%{install_libdir}/cmake/llvm
 BuildOption(conf):  -DCMAKE_BUILD_TYPE=RelWithDebInfo
-BuildOption(conf):  -DLLVM_ENABLE_RTTI=ON
 BuildOption(conf):  -DLLVM_USE_PERF=ON
 BuildOption(conf):  -DLLVM_TARGETS_TO_BUILD=%{targets_to_build}
 BuildOption(conf):  -DBUILD_SHARED_LIBS=OFF
-BuildOption(conf):  -DLLVM_BUILD_LLVM_DYLIB=ON
-BuildOption(conf):  -DLLVM_LINK_LLVM_DYLIB=ON
 BuildOption(conf):  -DCLANG_LINK_CLANG_DYLIB=ON
-BuildOption(conf):  -DLLVM_ENABLE_FFI:BOOL=ON
-BuildOption(conf):  -DLLVM_BINUTILS_INCDIR=/usr/include
-BuildOption(conf):  -DLLVM_ENABLE_EH=OFF
 BuildOption(conf):  -DCOMPILER_RT_INCLUDE_TESTS:BOOL=OFF
-BuildOption(conf):  -DLLVM_ENABLE_DOXYGEN:BOOL=OFF
-BuildOption(conf):  -DLLVM_ENABLE_SPHINX:BOOL=OFF
-BuildOption(conf):  -DLLVM_BUILD_DOCS:BOOL=OFF
-BuildOption(conf):  -DLLVM_APPEND_VC_REV:BOOL=OFF
-BuildOption(conf):  -DLLVM_BUILD_EXAMPLES:BOOL=OFF
-BuildOption(conf):  -DLLVM_BUILD_EXTERNAL_COMPILER_RT:BOOL=ON
-BuildOption(conf):  -DLLVM_BUILD_RUNTIME:BOOL=ON
-BuildOption(conf):  -DLLVM_BUILD_TOOLS:BOOL=ON
-BuildOption(conf):  -DLLVM_BUILD_UTILS:BOOL=ON
 BuildOption(conf):  -DLLVM_DEFAULT_TARGET_TRIPLE=%{llvm_triple}
-# BuildOption(conf):  -DLLVM_ENABLE_LIBCXX:BOOL=OFF
 BuildOption(conf):  -DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON
-# BuildOption(conf):  -DLLVM_ENABLE_PROJECTS="%{projects}"
-# BuildOption(conf):  -DLLVM_ENABLE_RUNTIMES="%{runtimes}"
-BuildOption(conf):  -DLLVM_ENABLE_ZLIB:BOOL=FORCE_ON
-BuildOption(conf):  -DLLVM_ENABLE_ZSTD:BOOL=FORCE_ON
-# BuildOption(conf):  -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=%{experimental_targets_to_build}
-BuildOption(conf):  -DLLVM_INCLUDE_BENCHMARKS=OFF
-BuildOption(conf):  -DLLVM_INCLUDE_EXAMPLES:BOOL=OFF
-BuildOption(conf):  -DLLVM_INCLUDE_TOOLS:BOOL=ON
-BuildOption(conf):  -DLLVM_INCLUDE_UTILS:BOOL=ON
-BuildOption(conf):  -DLLVM_INSTALL_TOOLCHAIN_ONLY:BOOL=OFF
-BuildOption(conf):  -DLLVM_INSTALL_UTILS:BOOL=ON
-BuildOption(conf):  -DLLVM_TOOLS_INSTALL_DIR:PATH=bin
 BuildOption(conf):  -DLLVM_UNREACHABLE_OPTIMIZE:BOOL=OFF
 BuildOption(conf):  -DLLVM_UTILS_INSTALL_DIR:PATH=bin
-BuildOption(conf):  -DLLVM_ENABLE_LTO=OFF
-BuildOption(conf):  -DLLVM_BUILD_TESTS:BOOL=ON
-BuildOption(conf):  -DLLVM_INCLUDE_TESTS:BOOL=ON
-BuildOption(conf):  -DLLVM_INSTALL_GTEST:BOOL=ON
 BuildOption(conf):  -DLLVM_LIT_ARGS="-vv"
 BuildOption(conf):  -DCMAKE_INSTALL_PREFIX=%{install_prefix}
 BuildOption(conf):  -DENABLE_LINKER_BUILD_ID:BOOL=ON
 BuildOption(conf):  -DPython3_EXECUTABLE=%{__python3}
 BuildOption(conf):  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
-BuildOption(conf):  -DLLVM_VERSION_SUFFIX=''
 BuildOption(conf):  -DCLANG_CONFIG_FILE_SYSTEM_DIR=%{_sysconfdir}/clang%{maj_ver}/
 BuildOption(conf):  -DCLANG_DEFAULT_PIE_ON_LINUX=OFF
 BuildOption(conf):  -DCLANG_DEFAULT_UNWINDLIB=libgcc
@@ -134,7 +101,7 @@ BuildOption(conf):  -DCLANG_ENABLE_STATIC_ANALYZER:BOOL=ON
 BuildOption(conf):  -DCLANG_INCLUDE_DOCS:BOOL=ON
 BuildOption(conf):  -DCLANG_INCLUDE_TESTS:BOOL=ON
 BuildOption(conf):  -DCLANG_PLUGIN_SUPPORT:BOOL=ON
-BuildOption(conf):  -DCLANG_REPOSITORY_STRING="%{?dist_vendor} %{version}-%{release}"
+BuildOption(conf):  -DCLANG_REPOSITORY_STRING="%{?_vendor_name} %{version}-%{release}"
 
 
 # clang patches
@@ -144,9 +111,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(libffi)
-BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  binutils-devel
 
 %ifarch %{valgrind_arches}
@@ -184,9 +149,6 @@ BuildRequires:  perl(Term::ANSIColor)
 BuildRequires:  perl(Text::ParseWords)
 BuildRequires:  perl(Sys::Hostname)
 BuildRequires:  procps-ng
-
-Requires:       llvm%{maj_ver}-libs%{?_isa} = %{version}-%{release}
-Provides:       llvm(major) = %{maj_ver}
 
 %description
 The compiler-rt project is a part of the LLVM project. It provides
