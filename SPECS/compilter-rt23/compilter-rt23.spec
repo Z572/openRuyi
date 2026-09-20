@@ -78,7 +78,7 @@ Provides:       compiler-rt(major) = %{maj_ver}
 BuildSystem:    cmake
 
 BuildOption(conf):  -G Ninja
-BuildOption(conf):  -DLLVM_CMAKE_DIR=%{install_libdir}/cmake
+BuildOption(conf):  -DLLVM_CMAKE_DIR=%{install_libdir}/cmake/llvm
 BuildOption(conf):  -DCMAKE_BUILD_TYPE=RelWithDebInfo
 BuildOption(conf):  -DLLVM_USE_PERF=ON
 BuildOption(conf):  -DLLVM_TARGETS_TO_BUILD=%{targets_to_build}
@@ -106,7 +106,7 @@ BuildOption(conf):  -DCLANG_REPOSITORY_STRING="%{?_vendor_name} %{version}-%{rel
 
 # clang patches
 
-BuildRequires:  llvm%{maj_ver} = %{version}
+BuildRequires:  llvm%{maj_ver}-devel = %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja
