@@ -107,6 +107,7 @@ BuildOption(conf):  -DCLANG_REPOSITORY_STRING="%{?_vendor_name} %{version}-%{rel
 # clang patches
 
 BuildRequires:  llvm%{maj_ver}-devel = %{version}
+BuildRequires:  llvm%{maj_ver}-static = %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja
