@@ -39,6 +39,7 @@ Requires:       glibc-locale-base
 # Useful tools
 Requires:       curl
 Requires:       nano
+Recommends:     gnupg
 
 %description
 This meta package provides the minimal environment for openRuyi.
