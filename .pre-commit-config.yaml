@@ -99,4 +99,4 @@ repos:
         entry: scripts/pre-commit-hooks/reuse-add-annotate.py
         files: \.spec$
         pass_filenames: true
-        additional_dependencies: ['reuse>=6.0.0']
+        additional_dependencies: ['reuse[charset-normalizer]>=6.0.0']
