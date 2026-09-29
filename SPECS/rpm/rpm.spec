@@ -87,6 +87,7 @@ Provides:       rpminst
 
 Requires:       rpm-config
 Requires:       lua
+Requires:       gnupg
 
 %description
 RPM Package Manager is the main tool for managing the software packages
