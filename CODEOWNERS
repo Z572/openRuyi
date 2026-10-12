@@ -1,0 +1,4 @@
+.pre-commit-config.yaml    @openruyi-project/CI
+.github/*                  @openruyi-project/CI
+scripts/*                  @openruyi-project/CI
+SPECS/kf6-*                @openruyi-project/desktop
