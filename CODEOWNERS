@@ -2,3 +2,5 @@
 .github/*                  @openruyi-project/CI
 scripts/*                  @openruyi-project/CI
 SPECS/kf6-*                @openruyi-project/desktop
+SPECS/ceph/*               @openruyi-project/storage
+SPECS/cloudpods*/*         @openruyi-project/cloud
