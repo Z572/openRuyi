@@ -80,7 +80,6 @@ Provides:       libmlx5 = %{version}-%{release}
 
 Requires:       kmod
 Requires:       systemd
-Requires:       udev
 
 %description
 RDMA core userspace infrastructure and documentation, including initialization
@@ -234,10 +233,11 @@ rm -rf %{buildroot}/%{_initddir}/
 rm -rf %{buildroot}/%{_sbindir}/srp_daemon.sh
 
 %post
+if [ -x %{_bindir}/udevadm ]; then
 # we ship udev rules, so trigger an update.
 %{_bindir}/udevadm trigger --subsystem-match=infiniband --action=change || true
 %{_bindir}/udevadm trigger --subsystem-match=infiniband_mad --action=change || true
-
+fi
 %post -n ibacm
 %systemd_post ibacm.service ibacm.socket
 
@@ -249,9 +249,10 @@ rm -rf %{buildroot}/%{_sbindir}/srp_daemon.sh
 
 %post -n srp_daemon
 %systemd_post srp_daemon.service
+if [ -x %{_bindir}/udevadm ]; then
 # we ship udev rules, so trigger an update.
 %{_bindir}/udevadm trigger --subsystem-match=infiniband_mad --action=change
-
+fi
 %preun -n srp_daemon
 %systemd_preun srp_daemon.service
 
@@ -272,8 +273,10 @@ rm -rf %{buildroot}/%{_sbindir}/srp_daemon.sh
 
 %post -n rdma-ndd
 %systemd_post rdma-ndd.service
+if [ -x %{_bindir}/udevadm ]; then
 # we ship udev rules, so trigger an update.
 %{_bindir}/udevadm trigger --subsystem-match=infiniband --action=change || true
+fi
 
 %postun -n rdma-ndd
 %systemd_postun rdma-ndd.service
