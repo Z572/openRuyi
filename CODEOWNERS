@@ -1,6 +1,7 @@
-.pre-commit-config.yaml    @openruyi-project/CI
-.github/*                  @openruyi-project/CI
-scripts/*                  @openruyi-project/CI
-SPECS/kf6-*                @openruyi-project/desktop
-SPECS/ceph/*               @openruyi-project/storage
-SPECS/cloudpods*/*         @openruyi-project/cloud
+.pre-commit-config.yaml    @openRuyi-Project/CI
+.github/*                  @openRuyi-Project/CI
+scripts/*                  @openRuyi-Project/CI
+SPECS/kf6-*                @openRuyi-Project/desktop
+SPECS/plasma-*             @openRuyi-Project/desktop
+SPECS/ceph/*               @openRuyi-Project/storage
+SPECS/cloudpods*/*         @openRuyi-Project/cloud
