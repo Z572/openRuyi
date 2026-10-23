@@ -23,6 +23,7 @@ BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
 BuildRequires:  pkgconfig(libsystemd)
+Suggests:       systemd-udev
 
 %description
 This package provides a way for applications to access USB devices.
