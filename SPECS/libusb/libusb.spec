@@ -12,10 +12,8 @@ Summary:        Public client interface library for NIS(YP) and NIS+
 License:        BSD-3-Clause AND LGPL-2.1-or-later
 URL:            http://libusb.info
 VCS:            git:https://github.com/libusb/libusb
-#!RemoteAsset
+#!RemoteAsset:  sha256:5977fc950f8d1395ccea9bd48c06b3f808fd3c2c961b44b0c2e6e29fc3a70a85
 Source0:        https://github.com/libusb/libusb/releases/download/v%{version}/%{name}-%{version}.tar.bz2
-#!RemoteAsset
-Source1:        https://github.com/libusb/libusb/releases/download/v%{version}/%{name}-%{version}.tar.bz2.asc
 BuildSystem:    autotools
 
 BuildOption(conf):  --disable-static
@@ -57,4 +55,4 @@ autoreconf -fiv
 %{_libdir}/pkgconfig/libusb-1.0.pc
 
 %changelog
-%{?autochangelog}
+%autochangelog
