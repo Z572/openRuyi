@@ -1,0 +1,101 @@
+
+name: RPM Download Network Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  network-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      HOST: repo.build.openruyi.cn
+      URL: https://repo.build.openruyi.cn/openruyi/riscv64/riscv64/gcc-c++-16-11.2.or.riscv64.rpm
+
+    steps:
+      - name: Install network tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mtr-tiny aria2 dnsutils
+
+      - name: Runner information
+        run: |
+          uname -a
+          echo "Runner: $RUNNER_NAME"
+          echo "Public IP:"
+          curl -4 -sS --max-time 10 https://api.ipify.org
+          echo
+          echo "Network routes:"
+          ip route
+
+      - name: DNS resolution
+        run: |
+          dig "$HOST" A
+          dig "$HOST" AAAA
+          getent ahostsv4 "$HOST"
+
+      - name: HTTP headers
+        run: |
+          curl -4 -sSIL --max-time 30 "$URL"
+
+      - name: IPv4 download benchmark
+        run: |
+          curl -4 -L -o /dev/null \
+            --connect-timeout 15 \
+            --max-time 60 \
+            -w '
+          remote_ip: %{remote_ip}
+          http_code: %{http_code}
+          dns: %{time_namelookup}s
+          connect: %{time_connect}s
+          tls: %{time_appconnect}s
+          ttfb: %{time_starttransfer}s
+          speed: %{speed_download} bytes/s
+          downloaded: %{size_download} bytes
+          total: %{time_total}s
+          ' "$URL" || true
+
+      - name: IPv6 download benchmark
+        run: |
+          curl -6 -L -o /dev/null \
+            --connect-timeout 10 \
+            --max-time 30 \
+            -w '
+          remote_ip: %{remote_ip}
+          http_code: %{http_code}
+          speed: %{speed_download} bytes/s
+          downloaded: %{size_download} bytes
+          total: %{time_total}s
+          ' "$URL" || true
+
+      - name: HTTP/1.1 download benchmark
+        run: |
+          curl -4 --http1.1 -L -o /dev/null \
+            --connect-timeout 15 \
+            --max-time 60 \
+            -w '
+          remote_ip: %{remote_ip}
+          http_code: %{http_code}
+          speed: %{speed_download} bytes/s
+          downloaded: %{size_download} bytes
+          total: %{time_total}s
+          ' "$URL" || true
+
+      - name: Parallel download benchmark
+        run: |
+          mkdir -p /tmp/rpm-test
+          timeout 90 aria2c \
+            --dir=/tmp/rpm-test \
+            --max-connection-per-server=8 \
+            --split=8 \
+            --min-split-size=1M \
+            --summary-interval=10 \
+            "$URL" || true
+          rm -rf /tmp/rpm-test
+
+      - name: TCP traceroute
+        run: |
+          sudo mtr -4 -T -P 443 \
+            --report --report-cycles 30 \
+            --show-ips "$HOST" || true
