@@ -11,7 +11,7 @@ jobs:
 
     env:
       HOST: repo.build.openruyi.cn
-      URL: https://repo.build.openruyi.cn/openruyi/riscv64/riscv64/gcc-c++-16-11.2.or.riscv64.rpm
+      URL: https://repo.build.openruyi.cn/openruyi/riscv64/riscv64/llvm22-debuginfo-22.1.8-20.4.or.riscv64.rpm
 
     steps:
       - name: Install network tools
