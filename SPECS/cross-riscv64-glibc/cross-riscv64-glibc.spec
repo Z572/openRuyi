@@ -8,19 +8,17 @@
 %define host_triple x86_64-openruyi-linux
 %define binsuffix -16
 
-%define upstream_version %{lua:print(rpm.expand("%{version}"):match("^[^+]+"))}
-%global git_commit 1f5026241027260e9280039698bca031484c82ad
 %global _lto_cflags %{nil}
 
 Name:           cross-riscv64-glibc
 Summary:        GNU C Library for %{cross_target} (sysroot)
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
-Version:        2.44+git20260918.1f5026241027
+Version:        2.44
 Release:        %autorelease
 URL:            https://www.gnu.org/software/libc/libc.html
 VCS:            git:https://forge.sourceware.org/glibc/glibc-mirror.git
-#!RemoteAsset:  sha256:9475c022bc2b201ba6455ae6bfb4c59c5c675d8a7065b61ad2db646c1003c699
-Source0:        https://forge.sourceware.org/glibc/glibc-mirror/archive/%{git_commit}.tar.gz#/glibc-%{version}.tar.gz
+#!RemoteAsset:  sha256:37f600f2bef3c5e8300147059568b2a2e40a7ad6ccc65ce942556d49429cc667
+Source0:        https://ftpmirror.gnu.org/gnu/glibc/glibc-%{version}.tar.xz
 
 # openRuyi patch
 Patch2000:      glibc-2.4-china.diff
@@ -47,7 +45,7 @@ This package provides the shared libraries, static archives and header
 files required for linking cross-compiled RISC-V userspace programs.
 
 %prep
-%autosetup -n glibc-mirror -p1
+%autosetup -n glibc-%{version} -p1
 
 %build
 # We do not want configure to pick up host tools mistakenly
