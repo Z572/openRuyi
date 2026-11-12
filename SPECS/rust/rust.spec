@@ -30,13 +30,13 @@
 %global rust_env %{rust_env} RUST_BACKTRACE=1
 
 Name:           rust
-Version:        1.97.1
+Version:        1.99.1
 Release:        %autorelease
 Summary:        Rust systems programming language
 License:        MIT AND Apache-2.0
 URL:            http://www.rust-lang.org/
 VCS:            git:https://github.com/rust-lang/rust.git
-#!RemoteAsset:  sha256:0ed06fdaffd4722a7702e0b4eebfafc897ab8f513e8e1b247cdd7e5c6df6ded2
+#!RemoteAsset:  sha256:6451598a99e77f07571960f6b21d577399d3a30f33e80cbd2e3a4aae6535d265
 Source0:        https://static.rust-lang.org/dist/rustc-%{version}-src.tar.xz
 Source1:        rust-openruyi.toml.in
 
@@ -64,9 +64,9 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  python3
 BuildRequires:  findutils
 %if %{with rust_bin}
-BuildRequires:  rust-bin >= 1.96.0
+BuildRequires:  rust-bin >= 1.98.0
 %else
-BuildRequires:  rust >= 1.96.0
+BuildRequires:  rust >= 1.98.0
 %endif
 # For tests.
 BuildRequires:  git-core
@@ -92,15 +92,18 @@ find vendor -name .cargo-checksum.json -exec sed -i.uncheck -e 's/"files":{[^}]*
 sed 's/CLANG-MAJOR-VERSION/%{clang_major_version}/' %{SOURCE1} > bootstrap.toml
 
 %build
+%set_build_flags
 export %{rust_env}
 ./x build --target %{rust_arch} --host %{rust_arch}
 
 %install
+%set_build_flags
 export %{rust_env}
 DESTDIR=%{buildroot} ./x.py install --target %{rust_arch} --host %{rust_arch}
 rm -rf %{buildroot}/usr/share/doc/docs
 
 %check
+%set_build_flags
 export %{rust_env}
 # Exclude this test due to our llvm has no arm target.
 ./x.py test --no-fail-fast --target %{rust_arch} --host %{rust_arch} \
